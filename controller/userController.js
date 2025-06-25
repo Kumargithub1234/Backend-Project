@@ -2,6 +2,16 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
+const getUsers = async (req,res) => {
+  try{
+    const data = await User.find({ email})
+
+    res.status(200).json({ mesage: "All Users data", data})
+
+  }catch(err){
+    res.status(500).json({ message: "INTERNAL SERVER ERROR" });
+  }
+}
 
 const signinUser = async (req, res) => {
   const { email, password } = req.body;
@@ -62,16 +72,6 @@ const signupUser = async (req, res) => {
     }
 };
 
-const getUsers = async (req,res) => {
-  try{
-    const data = await User.find({ email})
-
-    res.status(200).json({ mesage: "All Users data", data})
-
-  }catch(err){
-    res.status(500).json({ message: "INTERNAL SERVER ERROR" });
-  }
-}
 
 
 
