@@ -29,7 +29,6 @@ const signinUser = async (req, res) => {
       sameSite: 'lax',
       maxAge: 1 * 60 * 60 * 1000
     });
-
     res.status(200).json({ message: "Login successful" });
   } catch (error) {
     console.error("Signin error:", error)
@@ -63,6 +62,17 @@ const signupUser = async (req, res) => {
     }
 };
 
+const getUsers = async (req,res) => {
+  try{
+    const data = await User.find({ email})
+
+    res.status(200).json({ mesage: "All Users data", data})
+
+  }catch(err){
+    res.status(500).json({ message: "INTERNAL SERVER ERROR" });
+  }
+}
 
 
-module.exports = { signinUser, signupUser, }
+
+module.exports = { signinUser, signupUser, getUsers}
